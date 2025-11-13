@@ -1,0 +1,588 @@
+/* ========== 基本與全局樣式========== */
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "蘋方-繁", "PingFang TC", "Microsoft JhengHei", "微軟正黑體", sans-serif;
+    background-color: #f0f2f9; /* 淺紫藍色背景 */
+    margin: 0;
+    padding: 24px;
+}
+
+.chart-card {
+    background-color: #ffffff;
+    border-radius: 20px; /* 圓角 */
+    padding: 24px;
+    /* 漂亮的陰影效果 */
+    box-shadow: 0 10px 20px rgba(110, 110, 160, 0.08);
+    transition: transform 0.3s ease;
+}
+
+.chart-card:hover {
+    transform: translateY(-5px); /* 滑鼠懸停時輕微上浮 */
+}
+
+/* 卡片內標題 */
+.chart-card h2 {
+    margin-top: 0;
+    margin-bottom: 20px;
+    font-size: 1.25rem;
+    color: #333;
+}
+
+/* ========== 儀表板主要排版 (新結構) ========== */
+.dashboard-container {
+    display: grid;
+    grid-template-columns: 1fr 1.5fr 1fr; /* 三欄佈局，中間較寬 */
+    gap: 24px; /* 卡片之間的間距 */
+}
+
+.column {
+    display: flex;
+    flex-direction: column;
+    gap: 24px; /* 卡片之間的垂直間距 */
+}
+
+/* 主標題 (套用右圖 "每週報告" 的風格) */
+h1.dashboard-title {
+    color: #5856d6; 
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin: 0;
+}
+
+/* ========== ★ 新增 ★ 日期選擇器卡片 ========== */
+.date-picker-card {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background-color: #ffffff;
+    border-radius: 20px;
+    padding: 16px 24px;
+    box-shadow: 0 10px 20px rgba(110, 110, 160, 0.08);
+}
+.date-picker-card label {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: #555;
+}
+.date-picker-card input[type="date"] {
+    font-family: inherit;
+    font-size: 0.95rem;
+    font-weight: 500;
+    color: #5856d6;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 8px 10px;
+}
+
+
+/* ========== ★ 新增 ★ 欄位標題 + 按鈕 ========== */
+.column-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline; /* 對齊標題文字與按鈕 */
+    /* 調整 margin-bottom 讓它與卡片的 gap 視覺上一致 */
+    margin-bottom: -4px; 
+}
+.header-log-button {
+    padding: 6px 14px;
+    font-size: 0.9rem; /* 標題旁的按鈕，字體稍大 */
+    font-weight: 600;
+    color: #5856d6; /* 風格藍紫色 (文字) */
+    background-color: #f0f2f9; /* 淺紫背景色 */
+    border: 1px solid #c8b6ff; /* 風格紫色 (邊框) */
+    border-radius: 6px;
+    text-decoration: none;
+    transition: all 0.2s ease;
+    white-space: nowrap; /* 避免文字換行 */
+}
+.header-log-button:hover {
+    background-color: #5856d6;
+    color: white;
+}
+
+
+/* ========== 卡片 1: Brand health index ========== */
+.health-index-display {
+    text-align: center;
+    padding: 20px 0;
+}
+
+.percentage {
+    font-size: 4.5rem;
+    font-weight: 300;
+    color: #555;
+}
+
+/* ========== 卡片 2: Sentiment analysis ========== */
+.sentiment-tabs {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 20px;
+}
+.sentiment-tabs .tab {
+    padding: 8px 16px;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    cursor: pointer;
+    white-space: nowrap; /* 防止換行 */
+}
+.sentiment-tabs .tab.negative {
+    background-color: #ffe0e9; /* 淺粉色底 */
+    color: #ff8fab; /* 風格粉色 */
+}
+.sentiment-tabs .tab.natural {
+    background-color: #f0f0f0;
+    color: #777;
+}
+.sentiment-tabs .tab.positive.active { /* 這裡 active 的 tab 會是青色 */
+    background-color: #40e0d0; /* 風格青色 */
+    color: white;
+}
+/* 新增：其他 tab 的 active 狀態 */
+.sentiment-tabs .tab.negative.active {
+    background-color: #ff8fab;
+    color: white;
+}
+.sentiment-tabs .tab.natural.active {
+    background-color: #777;
+    color: white;
+}
+
+
+/* 簡化的 CSS 漸層滑桿 */
+.sentiment-slider-bar {
+    height: 10px;
+    background: linear-gradient(to right, #ff8fab, #f0f0f0, #40e0d0);
+    border-radius: 5px;
+    position: relative;
+    margin-top: 20px; /* 與 tabs 之間增加間距 */
+}
+.slider-thumb {
+    width: 20px;
+    height: 20px;
+    background-color: white;
+    border: 4px solid #40e0d0; /* 風格青色 */
+    border-radius: 50%;
+    position: absolute;
+    top: 50%;
+    right: 15%; /* 模擬 "Positive" 的位置 */
+    transform: translate(50%, -50%);
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    cursor: pointer; /* ★ 新增：滑鼠指標 ★ */
+}
+
+/* ========== ★ 新增 ★ 卡片 2: 自訂 Tooltip 樣式 ========== */
+/* 讓 .slider-thumb 成為 Tooltip 的定位錨點 */
+.slider-thumb {
+    position: relative; /* 關鍵：讓 ::before 和 ::after 相對於它定位 */
+    /* ... 原有的樣式 ... */
+}
+/* Tooltip 的文字框 */
+.slider-thumb::after {
+    content: attr(data-tooltip); /* 抓取 data-tooltip 屬性的內容 */
+    position: absolute;
+    bottom: 150%; /* 顯示在圓點上方 (100% + 三角形高度 + 間距) */
+    left: 50%;
+    transform: translateX(-50%); /* 水平置中 */
+    
+    /* 外觀樣式 */
+    background-color: #333; /* 深色背景 */
+    color: white;
+    padding: 8px 12px;
+    border-radius: 8px; /* 圓角 */
+    font-size: 0.85rem;
+    font-weight: 500;
+    white-space: pre-line; /* 關鍵：讓 換行符號生效 */
+    z-index: 10;
+    
+    /* 預設隱藏 */
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.2s ease, visibility 0.2s ease;
+    pointer-events: none; /* 讓滑鼠可以穿透 Tooltip */
+}
+/* Tooltip 的小三角形 */
+.slider-thumb::before {
+    content: '';
+    position: absolute;
+    bottom: 100%; /* 顯示在圓點正上方 */
+    left: 50%;
+    transform: translateX(-50%); /* 水平置中 */
+    
+    /* 用 border 畫出三角形 */
+    border-width: 6px;
+    border-style: solid;
+    border-color: #333 transparent transparent transparent; /* 指向上的深色三角形 */
+    z-index: 11;
+
+    /* 預設隱藏 */
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.2s ease, visibility 0.2s ease;
+    pointer-events: none;
+}
+/* 滑鼠懸停時，顯示 Tooltip */
+.slider-thumb:hover::after,
+.slider-thumb:hover::before {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* ========== 卡片 3: Status analysis ========== */
+.status-content {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    background-color: #f9f9f9;
+    border-radius: 10px;
+    padding: 15px;
+}
+
+/* ========== 卡片 4: Rescoure ========== */
+.resource-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+.resource-item {
+    /* 樣式已移至 .resource-link */
+    border-bottom: 1px solid #f0f0f0; /* 保留底線 */
+}
+.resource-item:last-child {
+    border-bottom: none; /* 移除最後一項的底線 */
+}
+
+/* ★ 新增 ★: 連結的樣式 */
+.resource-link {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 15px 10px; /* 增加內距和點擊區域 */
+    border-radius: 8px; /* 為了 hover 效果 */
+    
+    /* 移除 a 標籤預設樣式 */
+    color: inherit; /* 繼承父層的文字顏色 */
+    text-decoration: none; /* 移除底線 */
+    
+    transition: background-color 0.2s ease;
+}
+.resource-link:hover {
+    background-color: #f5f5f9; /* 一個非常淺的背景色 */
+}
+/* (★ 修改結束 ★) */
+
+
+.item-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 8px;
+    flex-shrink: 0; /* 確保圖示不被壓縮 */
+    object-fit: cover; /* 裁切並填滿 40x40 空間 */
+}
+
+.item-text {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+.item-text .title {
+    font-weight: 600;
+    font-size: 0.95rem;
+    color: #333;
+}
+.item-text .description {
+    font-size: 0.9rem;
+    color: #777;
+}
+.tag-kol {
+    background-color: #ff8fab; /* 風格粉色 */
+    color: white;
+    font-size: 0.7rem;
+    font-weight: 600;
+    padding: 3px 8px;
+    border-radius: 5px;
+    margin-left: 8px;
+    vertical-align: middle;
+}
+
+/* ========== 卡片 5: Keyword Ranking ========== */
+.ranking-tabs {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 20px;
+    border-bottom: 2px solid #f0f0f0;
+}
+.ranking-tabs .tab {
+    padding: 10px 15px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    cursor: pointer;
+    border-bottom: 2px solid transparent;
+    color: #777; /* 預設顏色 */
+}
+.ranking-tabs .tab.active {
+    color: #5856d6; /* 風格藍紫色 */
+    border-bottom-color: #5856d6;
+}
+
+/* 隱藏非活動的內容 */
+.ranking-content {
+    display: none;
+    margin-top: 20px; /* 讓內容和 tab 之間有間距 */
+}
+.ranking-content.active {
+    display: block;
+}
+
+.ranking-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+.ranking-list li {
+    font-size: 0.9rem;
+}
+.rank-name {
+    font-weight: 500;
+    color: #333;
+}
+.rank-bar-container {
+    background-color: #f0f2f9; /* 淺紫背景色 */
+    border-radius: 10px;
+    overflow: hidden;
+    margin-top: 6px;
+}
+.rank-bar {
+    height: 12px;
+    background-color: #c8b6ff; /* 風格紫色 */
+    border-radius: 10px;
+}
+.rank-volume {
+    font-size: 0.8rem;
+    color: #555;
+    margin-top: 4px;
+    display: block;
+}
+
+/* ========== ★ 新增 ★ Keyword Ranking 搜尋欄位 ========== */
+.ranking-search-bar {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 20px;
+}
+.ranking-search-bar input[type="text"] {
+    flex-grow: 1; /* 佔滿剩餘空間 */
+    padding: 10px 14px;
+    font-size: 0.95rem;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: inset 0 1px 2px rgba(0,0,0,0.05);
+}
+.ranking-search-bar input[type="text"]:focus {
+    outline: none;
+    border-color: #5856d6; /* 風格藍紫色 */
+    box-shadow: 0 0 0 2px rgba(88, 86, 214, 0.2);
+}
+.ranking-search-bar button {
+    padding: 10px 20px;
+    font-size: 0.95rem;
+    font-weight: 500;
+    color: white;
+    background-color: #5856d6; /* 風格藍紫色 */
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+.ranking-search-bar button:hover {
+    background-color: #4341a0;
+}
+
+.placeholder-text {
+    color: #777;
+    font-size: 0.9rem;
+    text-align: center;
+    padding: 20px;
+}
+.ranking-list-title {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 15px;
+    margin-top: 0; /* 移除預設的 margin */
+}
+
+
+/* ========== 卡片 6: Campaign ========== */
+.chart-card.campaign-card {
+    padding: 24px; 
+}
+
+.alert-content {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+.alert-item {
+    border-bottom: 1px dashed #ddd;
+    padding-bottom: 15px;
+}
+.alert-item:last-child {
+    border-bottom: none;
+    padding-bottom: 0;
+}
+.alert-item p {
+    margin: 6px 0;
+    font-size: 0.9rem;
+    line-height: 1.5;
+}
+.alert-item p strong {
+    color: #333;
+    font-weight: 600;
+}
+
+/* ★ 變更點：預設隱藏 PR 和 Growth 項目 ★ */
+.alert-item.pr-item {
+    display: none;
+}
+.alert-item.growth-item {
+    display: none;
+}
+
+
+/* ========== 引用方案區塊 ========== */
+.alert-actions {
+    display: flex;
+    flex-wrap: wrap; /* 在小螢幕上允許換行 */
+    align-items: center;
+    gap: 8px; /* 標籤和按鈕之間的間距 */
+    margin-top: 12px; /* 與上方文字的間距 */
+}
+
+/* "PR alert" 標籤樣式 */
+.pr-alert-tag {
+    display: inline-block;
+    background-color: #ff8fab;
+    color: white;
+    border-radius: 7px;
+    padding: 6px 14px;
+    font-size: 0.85rem;
+    font-weight: 600;
+}
+
+/* "引用此方案" (PR Alert) 按鈕樣式 */
+.quote-plan-btn {
+    display: inline-block;
+    padding: 6px 14px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #5856d6; /* 風格藍紫色 (文字) */
+    background-color: #f0f2f9; /* 淺紫背景色 */
+    border: 1px solid #c8b6ff; /* 風格紫色 (邊框) */
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+.quote-plan-btn:hover {
+    background-color: #5856d6; /* 滑鼠懸停時反轉顏色 */
+    color: white;
+    border-color: #5856d6;
+}
+
+/* ★ 新增 ★: "Growth Plan" 標籤樣式 (青綠色) */
+.growth-plan-tag {
+    display: inline-block;
+    background-color: #40e0d0; /* 青綠色 */
+    color: white;
+    border-radius: 7px;
+    padding: 6px 14px;
+    font-size: 0.85rem;
+    font-weight: 600;
+}
+/* ★ 新增 ★: "引用此方案" (Growth) 按鈕樣式 */
+.quote-growth-btn {
+    display: inline-block;
+    padding: 6px 14px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #007a70; /* 深青綠色 (文字) */
+    background-color: #e0f8f6; /* 淺青綠色 (背景) */
+    border: 1px solid #40e0d0; /* 青綠色 (邊框) */
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+.quote-growth-btn:hover {
+    background-color: #40e0d0;
+    color: white;
+    border-color: #40e0d0;
+}
+
+
+/* ========== 響應式設計 (平板/手機) ========== */
+@media (max-width: 1200px) {
+    .dashboard-container {
+        grid-template-columns: 1fr 1fr; /* 變為 2 欄 */
+    }
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 16px;
+    }
+    .dashboard-container {
+        grid-template-columns: 1fr; /* 變為 1 欄 */
+    }
+}
+
+/* ========== ★ 新增：總聲量趨勢圖樣式 ★ ========== */
+
+/* 聲量圖的時間選擇器 */
+.time-selector {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 20px;
+    padding-bottom: 10px; 
+}
+
+.time-btn {
+    font-size: 0.875rem;
+    padding: 8px 12px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    background-color: #fafafa;
+    color: #555;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.time-btn:hover {
+    background-color: #f0f0f0;
+    border-color: #ccc;
+}
+
+/* 按鈕被選中時的樣式 (套用您儀表板的主題色) */
+.time-btn.active {
+    background-color: #5856d6; /* 您的主題色 */
+    color: #ffffff;
+    border-color: #5856d6;
+    font-weight: 600;
+}
+
+/* 圖表容器 (限制高度) */
+.chart-container {
+    position: relative;
+    height: 250px; /* 您可以調整這個高度 */
+    width: 100%;
+}
+
+/* Chart.js 畫布的響應式設定 
+ (這個很重要，確保圖表能正確縮放)
+*/
+canvas {
+    width: 100% !important;
+    height: 100% !important;
+}
