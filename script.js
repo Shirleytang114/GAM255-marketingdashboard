@@ -211,7 +211,7 @@ function quotePlan(buttonElement, planType) {
     localStorage.setItem('marketingLog', JSON.stringify(log));
 
     alert(`方案「${keywordText}」已引用！\n即將轉跳到行銷日誌頁面...`);
-    window.location.href = 'marketing_log.html'; 
+    window.location.href = 'https://shirleytang114.github.io/GAM255-marketinglog/index.html'; 
 }
 
 
